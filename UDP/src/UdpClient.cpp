@@ -13,12 +13,11 @@
 
 UdpClient::UdpClient(){
 	this->descriptor = (-1);
-	
 }
 
 UdpClient::UdpClient(String ip, int port, unsigned int bufferSize){
 
-	UdpClient::UdpClient();
+	UdpClient();
 
 	this->setIp(ip)
 		->setPort(port)
