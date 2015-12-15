@@ -9,35 +9,6 @@
 
 #include "../header/UdpInterface.hpp"
 
-/* ******************* CONSTRUTORES ******************* */
-
-Udp::Udp(){
-	this->descriptor = (-1);
-}
-
-Udp::Udp(String ip, unsigned int port, unsigned int bufferSize){
-	this->Udp();
-
-	this->setIp(ip)
-		->setPort(port)
-		->setBufferSize(bufferSize);
-}
-
-/* ******************* ESTATICOS ******************* */
-
-
-socklen_t Udp::getSockAddrInSize(){
-	return sizeof(struct sockaddr_in);
-}
-
-struct sockaddr_in *Udp::getAddress(){
-
-	sockaddr_in * addr = new sockaddr_in();
-	memset(addr, 0, sizeof(*addr));
-
-	return addr;
-}
-
 /* ******************* SOCKET ******************* */
 
 bool Udp::openSocket(){
@@ -55,8 +26,10 @@ bool Udp::closeSocket(){
 
 	if(!this->isOpen()) return true;
 
-	close(this->socketOpened);
+	close(this->descriptor);
 	this->descriptor = (-1);
+
+	return true;
 }
 
 bool Udp::isOpen(){
@@ -71,7 +44,7 @@ Udp* Udp::setIp(String ip){
 	return this;
 }
 
-Udp* Udp::setPort(unsigned int port){
+Udp* Udp::setPort(int port){
 	this->port = port;
 	return this;
 }
@@ -87,7 +60,7 @@ String Udp::getIp(){
 	return this->ip;
 }
 
-unsigned int Udp::getPort(){
+int Udp::getPort(){
 	return this->port;
 }
 

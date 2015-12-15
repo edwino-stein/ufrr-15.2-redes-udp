@@ -14,39 +14,31 @@ class Udp : public Object{
 	protected:
 
 		String ip;
-		unsigned int port;
+		int port;
 		unsigned int bufferSize;
 		int descriptor;
 
-		static socklen_t getSockAddrInSize();
-
-		static struct sockaddr_in *getAddress();
+		virtual void updateAddress()=0;
 
 	public:
-
-		Udp();
-
-		Udp(String ip, unsigned int port, unsigned int bufferSize);
-
-		virtual ~Udp();
 
 		virtual bool send(String message)=0;
 
 		virtual bool recieve(String &response)=0;
 
-		virtual bool openSocket();
+		bool openSocket();
 
-		virtual bool closeSocket();
+		bool closeSocket();
 
-		virtual bool isOpen();
+		bool isOpen();
 
 		virtual Udp* setIp(String ip);
 
 		virtual String getIp();
 
-		virtual Udp* setPort(unsigned int port);
+		virtual Udp* setPort(int port);
 
-		virtual unsigned int getPort();
+		virtual int getPort();
 
 		virtual Udp* setBufferSize(unsigned int bufferSize);
 
