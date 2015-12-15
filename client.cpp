@@ -11,7 +11,7 @@ int Application::main(){
 	connection.send("Olá marielene");
 	connection.recieve(response);
 	out->put(response, true);
-	connection.closeSocket();
+	// connection.closeSocket();
 
 	// connection.send("Tainha, vinho...");
 	// connection.recieve(response);

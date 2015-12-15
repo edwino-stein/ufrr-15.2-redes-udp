@@ -12,12 +12,13 @@
 /* ******************* SOCKET ******************* */
 
 bool Udp::openSocket(){
-
+	
 	if(this->isOpen()) return true;
 
 	struct protoent *proto;
 	proto = getprotobyname("udp");
 	this->descriptor = socket(PF_INET, SOCK_DGRAM, proto->p_proto);
+
 	return this->descriptor >= 0;
 }
 

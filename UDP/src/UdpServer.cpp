@@ -13,18 +13,18 @@
 
 UdpServer::UdpServer(){
 	this->descriptor = (-1);
-	this->clientAddress = NULL;
 }
 
 UdpServer::UdpServer(String ip, int port, unsigned int bufferSize){
 
-	UdpServer();
+	this->descriptor = (-1);
 
 	this->setIp(ip)
 		->setPort(port)
 		->setBufferSize(bufferSize);
 
 	this->updateAddress();
+	memset(&this->clientAddress, 0, sizeof(struct sockaddr_in));
 }
 
 UdpServer::~UdpServer(){
@@ -42,8 +42,6 @@ void UdpServer::updateAddress(){
 
 bool UdpServer::send(String message){
 
-	if(this->clientAddress == NULL) return false;
-
 	ssize_t result = (-1);
 	this->updateAddress();
 	this->openSocket();
@@ -53,8 +51,8 @@ bool UdpServer::send(String message){
 		message.c_str(),
 		message.length(),
 		0,
-		(const struct sockaddr *) this->clientAddress,
-		sizeof(*this->clientAddress)
+		(const struct sockaddr *) &this->clientAddress,
+		sizeof(struct sockaddr_in)
 	);
 
 	return result >= 0;
@@ -67,19 +65,14 @@ bool UdpServer::recieve(String &response){
 	this->updateAddress();
 	this->openSocket();
 
-	if(this->clientAddress == NULL){
-		this->clientAddress = new struct sockaddr_in();
-		memset(this->clientAddress, 0, sizeof(*this->clientAddress));
-	}
-
-	socklen_t sizeAddress = sizeof(struct sockaddr);
+	socklen_t sizeAddress = sizeof(struct sockaddr_in);
 	
 	result = recvfrom(
 		this->descriptor,
 		buffer,
 		this->bufferSize,
 		0,
-		(struct sockaddr *) this->clientAddress,
+		(struct sockaddr *) &this->clientAddress,
 		&sizeAddress
 	);
 

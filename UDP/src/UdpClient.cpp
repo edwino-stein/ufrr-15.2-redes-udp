@@ -17,8 +17,8 @@ UdpClient::UdpClient(){
 
 UdpClient::UdpClient(String ip, int port, unsigned int bufferSize){
 
-	UdpClient();
-
+	this->descriptor = (-1);
+	
 	this->setIp(ip)
 		->setPort(port)
 		->setBufferSize(bufferSize);
@@ -51,7 +51,7 @@ bool UdpClient::send(String message){
 		message.length(),
 		0,
 		(const struct sockaddr *) &this->address,
-		sizeof(this->address)
+		sizeof(sockaddr_in)
 	);
 
 	return result >= 0;

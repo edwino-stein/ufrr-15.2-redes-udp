@@ -8,7 +8,7 @@ class UdpServer : public Udp{
 	protected:
 
 		struct sockaddr_in serverAddress;
-		struct sockaddr_in *clientAddress;
+		struct sockaddr_in clientAddress;
 
 		void updateAddress();
 
