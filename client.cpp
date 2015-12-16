@@ -3,18 +3,53 @@
 
 int Application::main(){
 
-	UdpClient connection("127.0.0.1", 5555);
+	console->clear();
 
-	
-	String response;
-	// Udp connection("127.0.0.1", 5555);
-	connection.send("Olá marielene");
-	connection.recieve(response);
-	out->put(response, true);
-	// connection.closeSocket();
+	String host;
+	int port;
 
-	// connection.send("Tainha, vinho...");
-	// connection.recieve(response);
-	// out->put(response, true);
+	host = (String) in->put("Informe o servidor [127.0.0.1]: ");
+
+	if(host.empty()){
+		host.append("127.0.0.1");
+	}
+
+	port = in->put("Informe a porta: ");
+
+	UdpClient connection(host, port);
+
+	out->put("Conectando...", true);
+	if(!connection.openSocket()){
+		out->put("Falha ao conectar.", true);
+		return 0;
+	}
+
+	if(!connection.send("help")){
+		out->put("Falha ao conectar.", true);
+		return 0;
+	}
+
+	String input;
+	String output;	
+
+	while(true){
+
+		output.clear();
+		input.clear();
+
+		connection.recieve(output);
+		out->put(" -> ")->put(output, true);
+
+		input = (String) in->put("Comando: ");
+
+		if(input.compare("exit") == 0){
+			break;
+		}
+		else{
+			connection.send(input);
+		}
+	}
+
+	connection.closeSocket();
 	return 0;
 }
