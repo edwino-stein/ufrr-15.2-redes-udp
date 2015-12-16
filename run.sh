@@ -48,7 +48,7 @@ esac
 
 echo
 echo -e "\t   ######################################################"
-echo -e "\t   ######## Compilando e Executando e Aplicativo ########"
+echo -e "\t   ######## Compilando e Executando o Aplicativo ########"
 echo -e "\t   ######################################################"
 echo
 chmod +x "$compileTool";
