@@ -31,6 +31,10 @@ class UdpServer : public Udp{
 		UdpServer* setPort(int port);
 
 		UdpServer* setBufferSize(unsigned int bufferSize);
+
+		String getClientIp();
+		
+		int getClientPort();
 };
 
 #endif

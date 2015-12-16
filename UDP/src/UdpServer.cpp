@@ -116,3 +116,18 @@ UdpServer* UdpServer::setPort(int port){
 UdpServer* UdpServer::setBufferSize(unsigned int bufferSize){
 	return (UdpServer *) Udp::setBufferSize(bufferSize);
 }
+
+/* ******************* GETTERS ******************* */
+
+String UdpServer::getClientIp(){
+	
+	char buffer[INET_ADDRSTRLEN];
+	inet_ntop(AF_INET, &this->clientAddress, buffer, INET_ADDRSTRLEN);
+	String ip(buffer);
+
+	return ip;
+}
+		
+int UdpServer::getClientPort(){
+	return ntohs(this->clientAddress.sin_port);
+}
