@@ -61,6 +61,8 @@ bool UdpClient::recieve(String &response){
 
 	ssize_t result = (-1);
 	char *buffer = new char[this->bufferSize];
+	memset(buffer, 0, this->bufferSize);
+
 	this->updateAddress();
 	this->openSocket();
 
