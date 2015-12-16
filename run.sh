@@ -7,7 +7,7 @@
 # ************** Variaveis globais **************
 
 dirBuild="./build/";
-compileTool="./tools/compileOSX.sh";
+compileTool="./tools/compileLinux.sh";
 compileInvokation="UDP/src/UdpInterface.cpp UDP/src/UdpClient.cpp UDP/src/UdpServer.cpp";
 clientSrc="client.cpp"
 serverSrc="server.cpp"
@@ -48,7 +48,7 @@ esac
 
 echo
 echo -e "\t   ######################################################"
-echo -e "\t   ################ Compilando Aplicativo ###############"
+echo -e "\t   ######## Compilando e Executando e Aplicativo ########"
 echo -e "\t   ######################################################"
 echo
 chmod +x "$compileTool";
